@@ -12,7 +12,7 @@ html, body {
 
 h1 {
     color: #585858;
-    font-size: 2rem;
+    font-size: 1.5rem;
     margin-top: 8px;
 }
 
@@ -20,9 +20,7 @@ header {
     text-align: center;
     height: 88px;
     background-color: #F7F7F7;
-    background-image: url("../../imgs/offline-rex.jpg");
-    background-repeat: no-repeat;
-    background-position: center;
+    background: url(../../imgs/offline-rex.jpg) center / contain no-repeat;
 }
 
 .side-nav-switch {
@@ -57,11 +55,11 @@ header {
     background-color: #585858;
     overflow: hidden;
     width: 0px;
+    height: calc(100% - 88px);
     transition: 0.5s ease-in-out;
     position: absolute;
     z-index: 1;
     will-change: transform;
-    height: 100%;
 }
 
 .offline-nav.open {
@@ -79,11 +77,15 @@ header {
 
 .create-todo-form input {
     width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 3px;
 }
 
 .create-todo-form textarea {
     width: 100%;
     resize: vertical;
+    border: 1px solid #ccc;
+    border-radius: 3px;
 }
 
 .offline-nav button {
@@ -95,6 +97,8 @@ header {
     border: 1px;
     border-radius: 5px;
     background: white;
+    line-height: 1.3rem;
+    font-size: 1rem;
 }
 
 .offline-content {
@@ -127,7 +131,30 @@ header {
     }
 
     header {
-        height: 120px;
+        height: 135px;
     }
 
+    .offline-nav {
+        height: calc(100% - 135px + 3rem);
+    }
+
+    .side-nav-switch {
+        left: 0;
+        top: 0;
+    }
+
+    .offline-nav.open {
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: 400px) and (min-width: 0px) {
+    h1 {
+        font-size: 1rem;
+    }
+
+    .offline-button {
+        line-height: 0.8rem;
+        font-size: 0.8rem;
+    }
 }
