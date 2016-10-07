@@ -6,11 +6,11 @@ document.getElementById("CleanDB").onclick = function () {
   });
 };
 
-document.getElementById("createTODO").onsubmit = function (evt) {
+function onFormSubmit(evt) {
   evt.preventDefault();
 
   var form = document.getElementById('createTODO');
-  var inputs = form.querySelectorAll('input[type="text"');
+  var inputs = form.querySelectorAll('input[type="text"]');
   var textAreas = form.querySelectorAll('textarea');
   var todoJson = {
     id: todoList.length > 0 ? todoList[todoList.length - 1].id + 1 : 0,
@@ -128,6 +128,13 @@ function navTouchBehaviour() {
   }
 }
 
-//just assigning stuff
+function onSetMockDataClick() {
+  hideNav();
+  setDefaultTODOs();
+}
+
+// assigning stuff
+document.getElementById("createTODO").onsubmit = onFormSubmit;
+document.getElementById('setMockData').onclick = onSetMockDataClick;
 document.getElementById("sideNavSwitch").onclick = navBButtonPressedEvtHandler;
 navTouchBehaviour();
