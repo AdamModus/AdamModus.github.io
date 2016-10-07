@@ -1,12 +1,22 @@
 "use strict";
 
-const vtTimeout = 1 * 1000;
+/**
+ * Toast settings
+ */
+// Default time before the toast fades away
+const vtTimeout = 2 * 1000;
 const vtCallback = Function.prototype;
+// Different types of toast notifications
 const vtType = {
   error: "error",
+  warning: 'warning',
   info: "info",
   success: "success"
 };
+
+/**
+ * List of different commands for the web worker
+ */
 const wwCommands = {
   list: 'list',
   get: 'get',
@@ -81,6 +91,10 @@ function filterAction(data) {
   }
 }
 
+function createToast(params) {
+  VanillaToasts.create(params);
+}
+
 function reportSuccess(params) {
   createToast({
     title: params.title,
@@ -91,16 +105,6 @@ function reportSuccess(params) {
   });
 }
 
-function initCards() {
-  cardsClass = new Cards();
-  cardsClass.onCardDelete = function (elem) {
-    let id = elem.getAttribute('identifier');
-    wworker.postMessage({
-      cmd: wwCommands.delete,
-      val: parseInt(id)
-    });
-  }
-}
 
 ///////////////////////////////////////////////////////
 ////////////// Actions ////////////////
@@ -167,5 +171,53 @@ function closeAction() {
     type: vtType.info,
     timeout: vtTimeout,
     callback: vtCallback
+  });
+}
+
+/*
+ Observe connectivity changes
+ */
+// Feature detection
+if ('ononline' in window && 'onoffline' in window && typeof navigator.onLine === 'boolean') {
+  var networkConnectivityService = new NetworkConnectivityService();
+  var connectivityIndicatorElement = document.getElementById('connectivity-indicator');
+
+  /**
+   * Function to inform the user the connectivity change
+   *
+   * @param connectivityState
+   */
+  var connectivityNotifier = function logConnectivity(connectivityState, notifyUser) {
+    if (connectivityState === 'online') {
+      console.log('%c Connectivity: ', 'color:#000; background-color: orange', 'online :)');
+      connectivityIndicatorElement.className = 'connectivity-online';
+      if (notifyUser) {
+        createToast({
+          title: "Looks like you're online again! (~˘▾˘)~",
+          text: "Your connectivity was restored. Thank god! Websites should work normally again.",
+          type: vtType.success,
+          timeout: 5 * 1000
+        });
+      }
+    } else {
+      console.log('%c Connectivity: ', 'color:#000; background-color: orange', 'offline :(');
+      connectivityIndicatorElement.className = 'connectivity-offline';
+      if (notifyUser) {
+        createToast({
+          title: "Oh, you got offline! (ಥ﹏ಥ)",
+          text: "I'm sorry for your soul, websites might still work but with limited functionality.",
+          type: vtType.warning,
+          timeout: 5 * 1000
+        });
+      }
+    }
+  };
+
+  // Init the connectivity state
+  connectivityNotifier(networkConnectivityService.getCurrentConnectivity(), false);
+
+  // Observe connectivity changes
+  networkConnectivityService.onConnectivityChange(function (state) {
+    connectivityNotifier(state, true);
   });
 }

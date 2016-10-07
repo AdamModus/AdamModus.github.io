@@ -2,10 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width"/>
     <link rel="manifest" href="manifest.json">
     <title>Surviving the offline status</title>
-    <link rel="shortcut icon" sizes="16x16 32x32 48x48 57x57 64x64 114x114 120x120 144x144 152x152" href="favicon.ico?v=1.0">
+    <link rel="shortcut icon"
+          sizes="16x16 32x32 48x48 57x57 64x64 114x114 120x120 144x144 152x152"
+          href="favicon.ico?v=1.0">
 
     <!-- Check Service Workers support-->
     <script>
@@ -15,7 +17,7 @@
          *
          * https://developer.mozilla.org/en-US/docs/Web/API/Cache
          */
-        if ( 'serviceWorker' in navigator && (typeof Cache !== 'undefined' && Cache.prototype.addAll) ) {
+        if ('serviceWorker' in navigator && (typeof Cache !== 'undefined' && Cache.prototype.addAll)) {
             console.log('%c Service workers: ', 'color:black; background-color: #FFD700', 'detected support on your browser, awesome!');
             navigator.serviceWorker.register('sw.js', {scope: './'}).then(function (registration) {
                 // Registration was successful! :)
@@ -46,7 +48,7 @@
                 cursor: pointer;
             }
 
-            figure h1.header{
+            figure h1.header {
                 margin: 0;
                 font-size: 1.5rem;
                 max-width: 90%;
@@ -61,7 +63,8 @@
                 top: 1rem;
                 right: 1rem;
             }
-            footer.footer{
+
+            footer.footer {
                 word-break: break-all;
             }
 
@@ -82,7 +85,7 @@
 <body class="surviving-offline">
 <header>
     <button id="sideNavSwitch" class="side-nav-switch"></button>
-    <h1>Surviving the offline status</h1>
+    <h1 alt="Hello there !">Surviving the offline <span id="connectivity-indicator">status</span></h1>
 </header>
 
 <div class="offline-body">
@@ -106,13 +109,16 @@
 </div>
 </body>
 
-
+<!-- Load Style -->
 <link rel="stylesheet" type="text/css" href="style/css/main.css">
 <link rel="stylesheet" type="text/css" href="style/vendor/vanillatoasts.css">
+<!-- Load Script -->
 <script src="js/vendor/cards.js"></script>
 <script src="js/vendor/vanillatoasts.js"></script>
+<script src="js/services/NetworkConnectivityService.js"></script>
 <script src="js/components/ToDoCard.js"></script>
-<script src="js/view.js"></script>
+<script src="js/components/CardList.js"></script>
+<script src="js/components/SideNavBar.js"></script>
 <script src="js/main.js"></script>
 <script src="js/util/setDefaultTODOs.js"></script>
 

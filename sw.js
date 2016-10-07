@@ -7,7 +7,9 @@ var urlsToCache = [
   'manifest.json',
   // js assets
   'js/main.js',
-  'js/view.js',
+  'js/services/NetworkConnectivityService.js',
+  'js/components/CardList.js',
+  'js/components/SideNavBar.js',
   'js/components/ToDoCard.js',
   'js/indexedDB/IndexedDBLayer.js',
   'js/indexedDB/TodoListDB.js',
@@ -23,7 +25,7 @@ var urlsToCache = [
   'imgs/icon/favicon-96x96.png',
   'imgs/icon/favicon-144x144.png',
   'imgs/icon/favicon-196x196.png',
-  'imgs/hamburger.svg'
+  'imgs/plus.svg'
 ];
 
 // used for logging
